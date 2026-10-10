@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/workspace/recommender-clean-venv/bin/python",
+    "-m",
+    "src.train",
+    "--config",
+    "runs/ml1m_profile.yaml",
+    "--model",
+    "neumf",
+    "--output",
+    "runs/ml1m_profile"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 37.98943935300122,
+  "max_rss_mib": 712.91015625,
+  "cpu_user_seconds": 101.793462,
+  "cpu_system_seconds": 17.177186
+}

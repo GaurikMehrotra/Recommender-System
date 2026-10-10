@@ -70,11 +70,13 @@ Cold-user/item simulations use validation only. Held users/items are removed fro
 training before fitting. Diagnostic cohorts are also excluded from early-stop validation. Cold items are excluded
 from negative sampling. New users with >=5 available positives reveal earliest 1-5
 train positives at inference;
-MF uses an explicit mean-item-embedding adaptation heuristic, and the content tower
+MF fits a new user factor and bias by ridge regression on the revealed ratings,
+and the content tower
 uses its learned user network. New-item ranking is restricted to a matched held-item
 universe for both models. MF's untrained item embeddings are a weak diagnostic;
 content-only items can generalize from genres/year. These artificial simulations do
-not prove performance for real new users/items. Default cold-start runs are one-seed
+not prove performance for real new users/items. Fold-in regularization is prespecified, not chosen using diagnostic targets.
+Default cold-start runs are one-seed
 diagnostics; repeat seeds for any headline claims.
 
 Explanations are "because you liked X" based on genre/year cosine similarity. They

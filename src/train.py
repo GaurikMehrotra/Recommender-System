@@ -42,6 +42,11 @@ class TorchScorer:
     def score(self, users: np.ndarray) -> np.ndarray:
         self.model.eval()
         u = torch.as_tensor(users, dtype=torch.long, device=self.device)
+        if isinstance(self.model, NCF) and self.model.variant == "gmf":
+            # Linear head on elementwise products is an exact weighted dot product.
+            weighted_users = self.model.user_embedding(u) * self.model.output.weight[0]
+            scores = weighted_users @ self.model.item_embedding.weight.T + self.model.output.bias[0]
+            return scores.cpu().numpy()
         if isinstance(self.model, TwoTower):
             user_vec = self.model.user_tower(self.model.user_features[u])
             item_vec = self.model.item_tower(self.model.features)

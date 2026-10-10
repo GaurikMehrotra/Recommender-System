@@ -1,5 +1,6 @@
 """PyTorch explicit matrix factorization with user/item biases."""
 
+import numpy as np
 import torch
 from torch import nn
 
@@ -35,3 +36,25 @@ class MF(nn.Module):
             + self.item_bias(items).squeeze(-1)
             + self.global_mean
         )
+
+
+def fold_in_user(
+    item_vectors: np.ndarray,
+    ratings: np.ndarray,
+    item_biases: np.ndarray,
+    global_mean: float,
+    regularization: float,
+) -> tuple[np.ndarray, float]:
+    """Fit a new user from fixed item factors using ridge regression in a tiny dual system.
+
+    Minimize ||r-mu-b_i-[Q,1]theta||^2 + lambda||theta||^2. The dual solve
+    theta=H.T (H H.T + lambda I)^-1 y costs O(history_size^3), not catalog^3.
+    """
+    if regularization <= 0 or not len(ratings):
+        raise ValueError("Need nonempty history and positive fold-in regularization")
+    design = np.column_stack([item_vectors, np.ones(len(ratings))])
+    target = np.asarray(ratings) - global_mean - np.asarray(item_biases)
+    coefficient = design.T @ np.linalg.solve(
+        design @ design.T + regularization * np.eye(len(ratings)), target
+    )
+    return coefficient[:-1], float(coefficient[-1])

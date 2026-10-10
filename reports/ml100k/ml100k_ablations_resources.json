@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/workspace/recommender-clean-venv/bin/python",
+    "-m",
+    "src.tune",
+    "--config",
+    "configs/debug_cpu.yaml",
+    "--stage",
+    "ablation",
+    "--output",
+    "runs/ml100k"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 13.840402997000638,
+  "max_rss_mib": 486.3984375,
+  "cpu_user_seconds": 42.800277,
+  "cpu_system_seconds": 0.477993
+}

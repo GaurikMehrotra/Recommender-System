@@ -162,7 +162,7 @@ Why: Validation-only selection and multiple seeds reduce optimistic conclusions.
 ```bash
 python -m src.tune --config configs/debug_cpu.yaml --stage tune --output runs/ml100k
 python -m src.tune --config configs/debug_cpu.yaml --stage ablation --output runs/ml100k
-python -m src.cold_start --config configs/debug_cpu.yaml --output runs/ml100k_cold
+python -m src.cold_start --config configs/cold_start.yaml --output runs/ml100k_cold
 python -m src.tune --config configs/debug_cpu.yaml --stage final --output runs/ml100k
 ```
 

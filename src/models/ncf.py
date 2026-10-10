@@ -39,13 +39,13 @@ class NCF(nn.Module):
             nn.init.normal_(layer.weight, std=0.05)
 
     def forward(self, users: torch.Tensor, items: torch.Tensor) -> torch.Tensor:
-        gmf = self.user_embedding(users) * self.item_embedding(items)
-        mlp = self.mlp(torch.cat([self.mlp_user(users), self.mlp_item(items)], dim=-1))
-        features = (
-            gmf
-            if self.variant == "gmf"
-            else mlp
-            if self.variant == "mlp"
-            else torch.cat([gmf, mlp], dim=-1)
-        )
+        if self.variant == "gmf":
+            features = self.user_embedding(users) * self.item_embedding(items)
+        else:
+            mlp = self.mlp(torch.cat([self.mlp_user(users), self.mlp_item(items)], dim=-1))
+            if self.variant == "mlp":
+                features = mlp
+            else:
+                gmf = self.user_embedding(users) * self.item_embedding(items)
+                features = torch.cat([gmf, mlp], dim=-1)
         return self.output(features).squeeze(-1)

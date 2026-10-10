@@ -5,12 +5,12 @@ filtering with neural recommendation. The goal is a fair **measured** comparison
 not a presumption that deeper models win. Complete source lives under `src/`;
 notebooks only explore data and analyze saved results.
 
-**Current evidence:** synthetic model/training/serving checks are available in
-[reports/VALIDATION.md](reports/VALIDATION.md). MovieLens download is currently
-blocked in the onboarding runtime by its network policy. Consequently there are
-**no measured MovieLens results yet**, and phases requiring actual MovieLens/Kaggle
-experiments are not experimentally complete. The code and exact execution commands
-are provided; no placeholder or published performance is substituted for measurements.
+**Current evidence:** official MovieLens 100K/1M downloads now work. The measured
+[100K debug benchmark](reports/ml100k/RESULTS.md) includes all eleven models,
+three seeds, full-ranking metrics, beyond-accuracy analyses and a paired bootstrap.
+The 1M headline experiment is being prepared after CPU profiling. GPU/Kaggle execution
+has not been observed; its exact cells are supplied. [Validation](reports/VALIDATION.md)
+distinguishes implemented capabilities, actual execution and remaining work.
 
 ## Quick start (LOCAL, Linux/macOS terminal or VS Code)
 
@@ -115,8 +115,8 @@ establishes optimality. MF can outperform NCF; conclusions must follow actual ru
 | Dataset | Status | Main accuracy table |
 |---|---|---|
 | Synthetic fixture | Functional validation only | Not a performance benchmark |
-| MovieLens 100K | Download blocked in current cloud runtime | Not measured |
-| MovieLens 1M (headline, >=3 seeds) | Not run | Not measured |
+| MovieLens 100K | Three-seed debug benchmark complete | [Measured aggregates](reports/ml100k/RESULTS.md) |
+| MovieLens 1M (headline, >=3 seeds) | CPU profiling passed; full experiments pending | Not measured yet |
 
 Generate aggregate tables with `src.tune` and figures with `src.report`; update this
 table only with measured results and link the run provenance. Final output contains

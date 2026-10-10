@@ -3,7 +3,7 @@
 The cloud instance was validated with Python 3.12.14 and CPU PyTorch 2.14.1+cpu.
 A fresh virtual environment installed the complete `requirements-cpu.lock` with
 `--require-hashes`; editable installation and `pip check` passed. The saved install
-script was executed again successfully, including ruff check/format and **31 pytest
+script was executed again successfully, including ruff check/format and **32 pytest
 checks passing**. GitHub Actions is configured but no remote CI outcome is claimed.
 
 ## Functional evidence (fictional data only)
@@ -41,7 +41,7 @@ The <5 GB target has not been established on MovieLens 100K/1M or the user's lap
 | 10 | Equal-budget tuning, ablations, >=3 seeds, frozen final stage and bootstrap | Synthetic workflow passes; headline ML-1M/Kaggle unrun |
 | 11-12 | Beyond-accuracy/reranking, cold-start simulation and similarity explanations | Synthetic diagnostics pass; MovieLens analyses unrun |
 | 13 | Retrieval export, FastAPI, Gradio and measured latency/RSS | Live synthetic serving verified; real-data serving unrun |
-| 14-15 | 31-test suite, CPU CI, docs, model card, license and publishing plan | Local checks pass; remote CI not observed |
+| 14-15 | 32-test suite, CPU CI, docs, model card, license and publishing plan | Local checks pass; remote CI not observed |
 | 16 | Final checks and native Git push to existing GitHub origin | Remote push must be verified by delivery process |
 
 ## External blockers and next actions
@@ -59,3 +59,16 @@ ML-1M headline experiments. Publish only measured aggregate tables/figures and
 revise the README after those runs. Optional 25M/EASE are deliberately outside the
 required implementation. No claim of complete experimental execution, published
 cloud snapshot or restoration in a new task is made.
+
+## Continuation: real data access restored
+
+Official downloads of both 100K and 1M subsequently succeeded, preserving TLS.
+The earlier 403 is historical and no longer a current blocker. Archive digests are
+in DATA_PROVENANCE.json. All 32 tests pass with vectorized sparse negative sampling,
+exact weighted-dot GMF scoring and hand-checked ridge user fold-in.
+
+MovieLens 100K tuning/validation ablations/cold-start diagnostics and the one-time
+three-seed final evaluation completed. See ml100k/RESULTS.md for measured aggregates.
+On full 1M with 128-dimensional NeuMF, a one-epoch CPU validation profile took 37.99
+seconds and reached 712.91 MiB child-process peak RSS. This is a cloud Linux memory
+measurement, not a claim of identical laptop performance. Main 1M test is untouched.

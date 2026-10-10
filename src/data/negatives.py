@@ -17,20 +17,22 @@ class NegativeSampler:
             raise ValueError("No eligible negative items")
 
     def sample(self, users: np.ndarray) -> np.ndarray:
-        """Rejection sampling with bounded retries and exact fallback."""
-        output = np.empty(len(users), dtype=np.int64)
-        for index, user in enumerate(users):
-            seen = self.positives.getrow(int(user)).indices
-            candidate = int(self.rng.choice(self.candidates))
-            attempts = 0
-            while candidate in seen:
-                attempts += 1
-                if attempts >= 32:
-                    available = np.setdiff1d(self.candidates, seen)
-                    if not len(available):
-                        raise ValueError("User has no unobserved items")
-                    candidate = int(self.rng.choice(available))
-                    break
-                candidate = int(self.rng.choice(self.candidates))
-            output[index] = candidate
+        """Vectorized CSR rejection sampling, with a bounded saturated-user fallback."""
+        users = np.asarray(users, dtype=np.int64)
+        output = self.rng.choice(self.candidates, size=len(users)).astype(np.int64)
+        for _ in range(32):
+            invalid = np.asarray(self.positives[users, output]).ravel() > 0
+            if not invalid.any():
+                return output
+            output[invalid] = self.rng.choice(self.candidates, size=int(invalid.sum()))
+        invalid = np.asarray(self.positives[users, output]).ravel() > 0
+        for index in np.flatnonzero(invalid):
+            user = users[index]
+            seen = self.positives.indices[
+                self.positives.indptr[user] : self.positives.indptr[user + 1]
+            ]
+            available = np.setdiff1d(self.candidates, seen)
+            if not len(available):
+                raise ValueError("User has no unobserved items")
+            output[index] = self.rng.choice(available)
         return output

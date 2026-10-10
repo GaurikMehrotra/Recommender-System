@@ -10,6 +10,7 @@ import pandas as pd
 
 from src.data.preprocess import interaction_matrix
 from src.eval.evaluate import evaluate
+from src.models.mf import fold_in_user
 from src.train import fit, prepare
 from src.utils import load_config
 
@@ -18,8 +19,8 @@ def run(config: dict, output: Path) -> None:
     """Disjoint held users/items; adapt user history without optimizing their ID vectors.
 
     New users: remove all their events when fitting; reveal earliest 1-5 TRAIN
-    positives only at inference. Compare content tower vs MF cosine-embedding
-    history heuristic (MF does not learn a new user ID from validation labels).
+    positives only at inference. Compare content tower vs MF ridge fold-in
+    (MF fits a new user factor only from the revealed ratings, never validation labels).
     New items: remove their events when fitting; restrict both models' scoring to
     held-out items. MF item vectors are untrained; two-tower uses item metadata.
     Neither experiment uses final-test labels.
@@ -103,6 +104,7 @@ def run(config: dict, output: Path) -> None:
                         .head(history_size)
                     )
                     history_matrix = interaction_matrix(histories, seen.shape)
+                    history_ratings = interaction_matrix(histories, seen.shape, binary=False)
                     import torch
 
                     model = scorer.model
@@ -124,10 +126,27 @@ def run(config: dict, output: Path) -> None:
                                     item_vec = model.item_tower(model.features)
                                     return (vector @ item_vec.T).cpu().numpy()
                                 item_vec = model.item_embedding.weight.detach().cpu().numpy()
-                                vector = np.asarray(batch_history @ item_vec) / np.maximum(
-                                    counts[:, None], 1
+                                bias = model.item_bias.weight.detach().cpu().numpy().ravel()
+                                mean = float(model.global_mean.cpu())
+                                factors = []
+                                user_bias = []
+                                for user in users:
+                                    row = history_ratings.getrow(int(user))
+                                    vector, offset = fold_in_user(
+                                        item_vec[row.indices],
+                                        row.data,
+                                        bias[row.indices],
+                                        mean,
+                                        config.get("cold_regularization", config["weight_decay"]),
+                                    )
+                                    factors.append(vector)
+                                    user_bias.append(offset)
+                                return (
+                                    np.asarray(factors) @ item_vec.T
+                                    + bias[None, :]
+                                    + mean
+                                    + np.asarray(user_bias)[:, None]
                                 )
-                                return vector @ item_vec.T
 
                     metrics, _, _ = evaluate(
                         Adapted(), truth, history_matrix, config["ks"], config["eval_batch_size"]
@@ -157,7 +176,7 @@ def run(config: dict, output: Path) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--config", default="configs/debug_cpu.yaml")
+    parser.add_argument("--config", default="configs/cold_start.yaml")
     parser.add_argument("--output", default="runs/cold_start")
     args = parser.parse_args()
     run(load_config(args.config), Path(args.output))

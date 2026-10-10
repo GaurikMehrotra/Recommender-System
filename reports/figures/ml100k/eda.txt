@@ -1,0 +1,1 @@
+Events: 100000; users: 943; items: 1682; sparsity: 0.936953

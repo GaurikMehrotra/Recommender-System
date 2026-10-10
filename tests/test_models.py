@@ -17,6 +17,13 @@ def test_end_to_end_all_models(tiny, tmp_path, name):
     scores = scorer.score(np.array([0, 1]))
     assert scores.shape == (2, 32)
     assert np.isfinite(scores).all()
+    if hasattr(scorer, "model"):
+        # Full-ranking retrieval must equal direct pair inference for every neural variant.
+        users = np.repeat([0, 1], 32)
+        items = np.tile(np.arange(32), 2)
+        direct = scorer.predict_pairs(users, items).reshape(2, 32)
+        np.testing.assert_allclose(scores, direct, atol=1e-6, rtol=1e-5)
+
     assert 0 <= metrics["NDCG@20"] <= 1
     if hasattr(scorer, "model"):
         assert scorer.model(torch.tensor([0, 1]), torch.tensor([2, 3])).shape == (2,)
@@ -137,3 +144,11 @@ def test_resume_rejects_changed_data(tiny, tmp_path):
     data.write_text("\n".join("\t".join(row) for row in rows) + "\n")
     with pytest.raises(ValueError, match="Resume requires"):
         fit(tiny, "mf", tmp_path / "mf", resume=True)
+
+
+def test_ridge_fold_in_hand_computed():
+    from src.models.mf import fold_in_user
+
+    factors, bias = fold_in_user(np.array([[2.0]]), np.array([5.0]), np.array([0.0]), 3.0, 1.0)
+    np.testing.assert_allclose(factors, [2 / 3])
+    assert bias == pytest.approx(1 / 3)

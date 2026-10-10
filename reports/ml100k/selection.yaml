@@ -1,0 +1,463 @@
+bpr:
+  batch_size: 1024
+  data_path: data/raw/ml-100k
+  device: cpu
+  epochs: 3
+  eval_batch_size: 32
+  item_batch_size: 128
+  ks:
+  - 10
+  - 20
+  learning_rate: 0.003
+  params:
+    embedding_dim: 16
+  patience: 2
+  positive_threshold: 4.0
+  rerank_penalties:
+  - 0.05
+  - 0.2
+  search:
+    embedding_dims:
+    - 16
+    - 32
+    learning_rates:
+    - 0.003
+    - 0.001
+    neighbors:
+    - 20
+    - 50
+    shrinkage:
+    - 10.0
+    - 30.0
+    weight_decays:
+    - 0.0001
+    - 0.001
+  seed: 42
+  seeds:
+  - 17
+  - 42
+  - 73
+  threads: 4
+  tuning_trials: 2
+  weight_decay: 0.0001
+gmf:
+  batch_size: 1024
+  data_path: data/raw/ml-100k
+  device: cpu
+  epochs: 3
+  eval_batch_size: 32
+  item_batch_size: 128
+  ks:
+  - 10
+  - 20
+  learning_rate: 0.003
+  params:
+    embedding_dim: 16
+  patience: 2
+  positive_threshold: 4.0
+  rerank_penalties:
+  - 0.05
+  - 0.2
+  search:
+    embedding_dims:
+    - 16
+    - 32
+    learning_rates:
+    - 0.003
+    - 0.001
+    neighbors:
+    - 20
+    - 50
+    shrinkage:
+    - 10.0
+    - 30.0
+    weight_decays:
+    - 0.0001
+    - 0.001
+  seed: 42
+  seeds:
+  - 17
+  - 42
+  - 73
+  threads: 4
+  tuning_trials: 2
+  weight_decay: 0.0001
+item_knn:
+  batch_size: 1024
+  data_path: data/raw/ml-100k
+  device: cpu
+  epochs: 3
+  eval_batch_size: 32
+  item_batch_size: 128
+  ks:
+  - 10
+  - 20
+  learning_rate: 0.003
+  params:
+    k: 20
+    shrinkage: 10.0
+  patience: 2
+  positive_threshold: 4.0
+  rerank_penalties:
+  - 0.05
+  - 0.2
+  search:
+    embedding_dims:
+    - 16
+    - 32
+    learning_rates:
+    - 0.003
+    - 0.001
+    neighbors:
+    - 20
+    - 50
+    shrinkage:
+    - 10.0
+    - 30.0
+    weight_decays:
+    - 0.0001
+    - 0.001
+  seed: 42
+  seeds:
+  - 17
+  - 42
+  - 73
+  threads: 4
+  tuning_trials: 2
+  weight_decay: 0.0001
+mf:
+  batch_size: 1024
+  data_path: data/raw/ml-100k
+  device: cpu
+  epochs: 3
+  eval_batch_size: 32
+  item_batch_size: 128
+  ks:
+  - 10
+  - 20
+  learning_rate: 0.001
+  params:
+    embedding_dim: 32
+  patience: 2
+  positive_threshold: 4.0
+  rerank_penalties:
+  - 0.05
+  - 0.2
+  search:
+    embedding_dims:
+    - 16
+    - 32
+    learning_rates:
+    - 0.003
+    - 0.001
+    neighbors:
+    - 20
+    - 50
+    shrinkage:
+    - 10.0
+    - 30.0
+    weight_decays:
+    - 0.0001
+    - 0.001
+  seed: 42
+  seeds:
+  - 17
+  - 42
+  - 73
+  threads: 4
+  tuning_trials: 2
+  weight_decay: 0.001
+mlp:
+  batch_size: 1024
+  data_path: data/raw/ml-100k
+  device: cpu
+  epochs: 3
+  eval_batch_size: 32
+  item_batch_size: 128
+  ks:
+  - 10
+  - 20
+  learning_rate: 0.001
+  params:
+    embedding_dim: 32
+  patience: 2
+  positive_threshold: 4.0
+  rerank_penalties:
+  - 0.05
+  - 0.2
+  search:
+    embedding_dims:
+    - 16
+    - 32
+    learning_rates:
+    - 0.003
+    - 0.001
+    neighbors:
+    - 20
+    - 50
+    shrinkage:
+    - 10.0
+    - 30.0
+    weight_decays:
+    - 0.0001
+    - 0.001
+  seed: 42
+  seeds:
+  - 17
+  - 42
+  - 73
+  threads: 4
+  tuning_trials: 2
+  weight_decay: 0.001
+neumf:
+  batch_size: 1024
+  data_path: data/raw/ml-100k
+  device: cpu
+  epochs: 3
+  eval_batch_size: 32
+  item_batch_size: 128
+  ks:
+  - 10
+  - 20
+  learning_rate: 0.003
+  params:
+    embedding_dim: 16
+  patience: 2
+  positive_threshold: 4.0
+  rerank_penalties:
+  - 0.05
+  - 0.2
+  search:
+    embedding_dims:
+    - 16
+    - 32
+    learning_rates:
+    - 0.003
+    - 0.001
+    neighbors:
+    - 20
+    - 50
+    shrinkage:
+    - 10.0
+    - 30.0
+    weight_decays:
+    - 0.0001
+    - 0.001
+  seed: 42
+  seeds:
+  - 17
+  - 42
+  - 73
+  threads: 4
+  tuning_trials: 2
+  weight_decay: 0.0001
+popularity:
+  batch_size: 1024
+  data_path: data/raw/ml-100k
+  device: cpu
+  epochs: 3
+  eval_batch_size: 32
+  item_batch_size: 128
+  ks:
+  - 10
+  - 20
+  learning_rate: 0.003
+  params:
+    temperature: 1.0
+  patience: 2
+  positive_threshold: 4.0
+  rerank_penalties:
+  - 0.05
+  - 0.2
+  search:
+    embedding_dims:
+    - 16
+    - 32
+    learning_rates:
+    - 0.003
+    - 0.001
+    neighbors:
+    - 20
+    - 50
+    shrinkage:
+    - 10.0
+    - 30.0
+    weight_decays:
+    - 0.0001
+    - 0.001
+  seed: 42
+  seeds:
+  - 17
+  - 42
+  - 73
+  threads: 4
+  tuning_trials: 2
+  weight_decay: 0.0001
+random:
+  batch_size: 1024
+  data_path: data/raw/ml-100k
+  device: cpu
+  epochs: 3
+  eval_batch_size: 32
+  item_batch_size: 128
+  ks:
+  - 10
+  - 20
+  learning_rate: 0.003
+  params: {}
+  patience: 2
+  positive_threshold: 4.0
+  rerank_penalties:
+  - 0.05
+  - 0.2
+  search:
+    embedding_dims:
+    - 16
+    - 32
+    learning_rates:
+    - 0.003
+    - 0.001
+    neighbors:
+    - 20
+    - 50
+    shrinkage:
+    - 10.0
+    - 30.0
+    weight_decays:
+    - 0.0001
+    - 0.001
+  seed: 42
+  seeds:
+  - 17
+  - 42
+  - 73
+  threads: 4
+  tuning_trials: 2
+  weight_decay: 0.0001
+svd:
+  batch_size: 1024
+  data_path: data/raw/ml-100k
+  device: cpu
+  epochs: 3
+  eval_batch_size: 32
+  item_batch_size: 128
+  ks:
+  - 10
+  - 20
+  learning_rate: 0.003
+  params:
+    embedding_dim: 16
+  patience: 2
+  positive_threshold: 4.0
+  rerank_penalties:
+  - 0.05
+  - 0.2
+  search:
+    embedding_dims:
+    - 16
+    - 32
+    learning_rates:
+    - 0.003
+    - 0.001
+    neighbors:
+    - 20
+    - 50
+    shrinkage:
+    - 10.0
+    - 30.0
+    weight_decays:
+    - 0.0001
+    - 0.001
+  seed: 42
+  seeds:
+  - 17
+  - 42
+  - 73
+  threads: 4
+  tuning_trials: 2
+  weight_decay: 0.0001
+two_tower:
+  batch_size: 1024
+  data_path: data/raw/ml-100k
+  device: cpu
+  epochs: 3
+  eval_batch_size: 32
+  item_batch_size: 128
+  ks:
+  - 10
+  - 20
+  learning_rate: 0.003
+  params:
+    embedding_dim: 16
+  patience: 2
+  positive_threshold: 4.0
+  rerank_penalties:
+  - 0.05
+  - 0.2
+  search:
+    embedding_dims:
+    - 16
+    - 32
+    learning_rates:
+    - 0.003
+    - 0.001
+    neighbors:
+    - 20
+    - 50
+    shrinkage:
+    - 10.0
+    - 30.0
+    weight_decays:
+    - 0.0001
+    - 0.001
+  seed: 42
+  seeds:
+  - 17
+  - 42
+  - 73
+  threads: 4
+  tuning_trials: 2
+  weight_decay: 0.0001
+user_knn:
+  batch_size: 1024
+  data_path: data/raw/ml-100k
+  device: cpu
+  epochs: 3
+  eval_batch_size: 32
+  item_batch_size: 128
+  ks:
+  - 10
+  - 20
+  learning_rate: 0.003
+  params:
+    k: 20
+    shrinkage: 10.0
+  patience: 2
+  positive_threshold: 4.0
+  rerank_penalties:
+  - 0.05
+  - 0.2
+  search:
+    embedding_dims:
+    - 16
+    - 32
+    learning_rates:
+    - 0.003
+    - 0.001
+    neighbors:
+    - 20
+    - 50
+    shrinkage:
+    - 10.0
+    - 30.0
+    weight_decays:
+    - 0.0001
+    - 0.001
+  seed: 42
+  seeds:
+  - 17
+  - 42
+  - 73
+  threads: 4
+  tuning_trials: 2
+  weight_decay: 0.0001
