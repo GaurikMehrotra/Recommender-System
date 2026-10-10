@@ -43,7 +43,9 @@ the benchmark should not generalize to those users without another protocol.
 
 Full ranking covers all catalog items, including items with no train positives;
 exclude every train-observed rating. Test additionally excludes validation positives.
-No sampled-negative evaluation is reported. Batch scores use O(batch_users * items)
+No sampled-negative evaluation is reported. Training negatives exclude observed
+train ratings, but can include future positives because held-out labels are never
+used by the sampler; this false-negative limitation is inherent to this protocol. Batch scores use O(batch_users * items)
 memory; never a full dense users-by-items matrix. Stable ties favor lower item IDs,
 a reproducible convention that can matter for sparse baselines and untrained items.
 

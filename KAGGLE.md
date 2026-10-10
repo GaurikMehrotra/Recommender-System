@@ -221,10 +221,19 @@ from IPython.display import FileLink, display
 
 archive = Path("/kaggle/working/recommender_reports.zip")
 with zipfile.ZipFile(archive, "w", compression=zipfile.ZIP_DEFLATED) as z:
-    for root in [Path("runs/ml1m"), Path("runs/ml1m_cold"), Path("reports")]:
-        for path in root.rglob("*"):
-            if path.is_file() and path.suffix in {".csv", ".json", ".yaml", ".png", ".md", ".txt"}:
-                z.write(path, str(path))
+    aggregate_names = [
+        "results.csv", "summary.csv", "ablations.csv", "significance.json",
+        "selection.yaml", "trials.json", "FINAL_MANIFEST.json", "TUNING_MANIFEST.json",
+    ]
+    for name in aggregate_names:
+        path = Path("runs/ml1m") / name
+        if path.exists():
+            z.write(path, str(path))
+    cold = Path("runs/ml1m_cold/cold_start.csv")
+    if cold.exists():
+        z.write(cold, str(cold))
+    for path in Path("reports/figures").rglob("*.png"):
+        z.write(path, str(path))
 display(FileLink(str(archive)))
 ```
 
