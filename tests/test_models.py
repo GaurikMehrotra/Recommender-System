@@ -52,16 +52,29 @@ def test_export_and_api(tiny, tmp_path, name):
         assert client.post("/recommend", json={"user": 999}).status_code == 422
 
 
-def test_cold_start_validation_only(tiny, tmp_path):
+def test_cold_start_validation_only(tiny, tmp_path, monkeypatch):
     import json
 
     import pandas as pd
 
+    import src.cold_start as cold_module
     from src.cold_start import run
 
-    run(tiny, tmp_path / "cold")
+    original = cold_module.evaluate
+
+    def assert_full_catalog(model, truth, seen, *args, **kwargs):
+        scores = model.score(truth.user.unique()[:2])
+        assert scores.shape[1] == seen.shape[1]
+        assert np.isfinite(scores).all(), (
+            "Cold diagnostics must not restrict candidates to a sampled subset"
+        )
+        return original(model, truth, seen, *args, **kwargs)
+
+    monkeypatch.setattr(cold_module, "evaluate", assert_full_catalog)
+    run(dict(tiny, cold_fraction=0.5), tmp_path / "cold")
     results = pd.read_csv(tmp_path / "cold" / "cold_start.csv")
     assert set(results[results["mode"] == "users"].history_size) == {1, 2, 3, 4, 5}
+    assert results[results["mode"] == "items"]["Recall@20"].notna().all()
     protocol = json.loads((tmp_path / "cold" / "protocol.json").read_text())
     state = torch.load(tmp_path / "cold" / "items" / "two_tower" / "last.pt", weights_only=False)
     assert state["config"]["excluded_training_items"] == protocol["held_items"]

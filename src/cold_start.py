@@ -21,8 +21,8 @@ def run(config: dict, output: Path) -> None:
     New users: remove all their events when fitting; reveal earliest 1-5 TRAIN
     positives only at inference. Compare content tower vs MF ridge fold-in
     (MF fits a new user factor only from the revealed ratings, never validation labels).
-    New items: remove their events when fitting; restrict both models' scoring to
-    held-out items. MF item vectors are untrained; two-tower uses item metadata.
+    New items: remove their events when fitting; score the FULL catalog for
+    both models, conditioning diagnostic truth on held-item positives. MF item vectors are untrained; two-tower uses item metadata.
     Neither experiment uses final-test labels.
     """
     prepared = prepare(config)
@@ -79,14 +79,10 @@ def run(config: dict, output: Path) -> None:
                     rows.append({"mode": mode, "model": name, "status": "no eligible positives"})
                     continue
 
-                class Restricted:
-                    def score(self, users: np.ndarray) -> np.ndarray:
-                        score = scorer.score(users)
-                        score[:, np.setdiff1d(np.arange(len(items)), held_items)] = -np.inf
-                        return score
-
+                # Fit sees no cold-item feedback, but the original historical mask
+                # still prevents recommending movies already observed by that user.
                 metrics, _, _ = evaluate(
-                    Restricted(), truth, matrix, config["ks"], config["eval_batch_size"]
+                    scorer, truth, seen, config["ks"], config["eval_batch_size"]
                 )
                 rows.append(
                     {"mode": mode, "model": name, "users": int(truth.user.nunique()), **metrics}
@@ -165,6 +161,7 @@ def run(config: dict, output: Path) -> None:
     (output / "protocol.json").write_text(
         json.dumps(
             {
+                "candidate_universe": "full_catalog",
                 "held_users": held_users.tolist(),
                 "held_items": held_items.tolist(),
                 "config": config,

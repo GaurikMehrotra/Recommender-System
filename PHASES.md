@@ -198,7 +198,7 @@ python -m src.cold_start --output runs/debug/cold_start
 jupyter lab notebooks/03_bias_and_cold_start.ipynb
 ```
 
-Expected: Validation-only 1-5-history user simulations and disjoint held-item comparisons. Genre/year explanations disclose their provenance.
+Expected: Validation-only 1-5-history user simulations and disjoint held-item comparisons against the full catalog. Genre/year explanations disclose their provenance.
 
 ```bash
 git add src app tests configs notebooks reports .github README.md MODEL_CARD.md KAGGLE.md PHASES.md Makefile requirements.txt requirements-lock.txt requirements-cpu.lock pyproject.toml .gitignore LICENSE

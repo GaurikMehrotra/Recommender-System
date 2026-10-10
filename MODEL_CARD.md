@@ -72,8 +72,9 @@ from negative sampling. New users with >=5 available positives reveal earliest 1
 train positives at inference;
 MF fits a new user factor and bias by ridge regression on the revealed ratings,
 and the content tower
-uses its learned user network. New-item ranking is restricted to a matched held-item
-universe for both models. MF's untrained item embeddings are a weak diagnostic;
+uses its learned user network. New-item metrics condition on held-item validation positives while ranking the
+full catalog for both models. Original train-history masks prevent repeat
+recommendations without fitting withheld item feedback. MF's untrained item embeddings are a weak diagnostic;
 content-only items can generalize from genres/year. These artificial simulations do
 not prove performance for real new users/items. Fold-in regularization is prespecified, not chosen using diagnostic targets.
 Default cold-start runs are one-seed

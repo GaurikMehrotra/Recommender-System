@@ -82,4 +82,8 @@ users pool revealed movie features; early stopping excludes diagnostic cohorts.
 
 No dataset rows, per-user metrics, recommendation lists, movies catalog, checkpoints,
 embeddings or logs are included. Files here contain configurations and aggregates.
-The source snapshot for this debug run is the Git tag ml100k-debug-v1.
+The source snapshot for the warm debug benchmark is Git tag ml100k-debug-v1.
+Cold diagnostics were subsequently corrected to rank the full catalog, conditioning
+truth on cold-item validation positives and excluding original historical observations;
+the final source includes a regression check. Their saved aggregate CSV reflects
+that corrected validation-only rerun. No warm test evaluation was repeated.
