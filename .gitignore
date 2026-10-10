@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.venv/
+/data/
+/checkpoints/
+/runs/
+/artifacts/
+*.egg-info/
+.ipynb_checkpoints/
+.env
+.gradio/
