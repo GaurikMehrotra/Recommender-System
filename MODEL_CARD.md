@@ -4,7 +4,7 @@
 This is an educational MovieLens research pipeline, not a production Netflix model.
 All required model families are implemented. Synthetic functional checks are distinct
 from MovieLens effectiveness measurements. See `reports/VALIDATION.md` for actual
-executed checks. No unrun ML-1M or Kaggle results are claimed.
+executed checks. Measured CPU benchmarks are linked from the README; Kaggle GPU execution is unrun.
 
 ## Data and license
 MovieLens 100K is for debugging; MovieLens 1M is the main benchmark. Download directly

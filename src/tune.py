@@ -3,6 +3,7 @@
 import argparse
 import copy
 import json
+import shutil
 from pathlib import Path
 
 import numpy as np
@@ -13,7 +14,7 @@ from src.data.preprocess import interaction_matrix
 from src.eval.beyond_accuracy import beyond_accuracy
 from src.eval.evaluate import evaluate, explicit_metrics
 from src.eval.significance import paired_bootstrap
-from src.train import MODELS, fit, prepare
+from src.train import MODELS, NEURAL, fit, prepare
 from src.utils import atomic_json, data_fingerprint, load_config
 
 
@@ -92,6 +93,21 @@ def tune(base: dict, output: Path, models: list[str], resume: bool = False) -> N
     (output / "selection.yaml").write_text(yaml.safe_dump(selections))
 
 
+def cached_trial(base: dict, output: Path, model: str, config: dict) -> Path | None:
+    """Reuse only completed validation fits with matching data and full config."""
+    manifest = output / "TUNING_MANIFEST.json"
+    if not manifest.exists():
+        return None
+    saved = json.loads(manifest.read_text())
+    if saved["config"] != base or saved["data_fingerprint"] != data_fingerprint(base["data_path"]):
+        return None
+    for completed in sorted((output / "tuning" / model).glob("*/TRIAL_COMPLETED.json")):
+        record = json.loads(completed.read_text())
+        if record["config"] == config:
+            return completed.parent
+    return None
+
+
 def final(base: dict, output: Path, resume: bool = False) -> None:
     """Run selected configs on three fixed seeds; include fixed reranking strengths.
 
@@ -136,11 +152,16 @@ def final(base: dict, output: Path, resume: bool = False) -> None:
                 )
                 continue
             first_row = len(rows)
+            cached = cached_trial(base, output, model, config)
+            if model in NEURAL and cached is not None and not (directory / "last.pt").exists():
+                directory.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(cached / "last.pt", directory / "last.pt")
+                atomic_json(directory / "REUSED_VALIDATION_FIT.json", {"source": str(cached)})
             scorer, validation = fit(
                 config,
                 model,
                 directory,
-                resume=resume and (directory / "last.pt").exists(),
+                resume=(resume or cached is not None) and (directory / "last.pt").exists(),
                 prepared=prepared,
             )
             metrics, per_user, rankings = evaluate(
@@ -216,9 +237,15 @@ def main() -> None:
         ]:
             for dim in base["search"]["embedding_dims"]:
                 config = trial_config(base, model, 0, dim)
-                _, metrics = fit(
-                    config, model, output / "ablation" / model / str(dim), prepared=prepared
-                )
+                cached = cached_trial(base, output, model, config)
+                if cached is not None:
+                    metrics = json.loads((cached / "TRIAL_COMPLETED.json").read_text())[
+                        "validation"
+                    ]
+                else:
+                    _, metrics = fit(
+                        config, model, output / "ablation" / model / str(dim), prepared=prepared
+                    )
                 rows.append({"model": model, "embedding_dim": dim, **metrics})
         pd.DataFrame(rows).to_csv(output / "ablations.csv", index=False)
 

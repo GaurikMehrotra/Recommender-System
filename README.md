@@ -78,7 +78,9 @@ available as metadata. See [MODEL_CARD.md](MODEL_CARD.md) for selection biases.
 Validation determines hyperparameters and early stopping. `src.tune --stage final`
 freezes selections and creates an exclusive `TEST_CONSUMED` marker before scoring
 three seeds. Do not inspect test results and retune. Recover an interrupted final run with the exact command plus `--resume`; manifests
-require unchanged selections/configuration and reuse completed model-seed results. Run ablations
+require unchanged selections/configuration and reuse completed model-seed results.
+Exact matching seed-42 validation checkpoints are reused for final scoring; this
+avoids retraining identical selected fits and does not create another seed. Run ablations
 and cold-start diagnostics on validation **before** final evaluation.
 
 Every ranking considers **all catalog items** and excludes prior observed items;

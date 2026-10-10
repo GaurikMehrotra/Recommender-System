@@ -41,13 +41,32 @@ def eda(data_path: str, output: Path) -> None:
 def results(path: str, output: Path) -> None:
     """Plot mean and seed standard deviation of measured full-ranking NDCG."""
     frame = pd.read_csv(path)
-    summary = frame.groupby("model")["NDCG@20"].agg(["mean", "std"])
+    summary = (
+        frame[~frame.model.str.contains("_rerank_")]
+        .groupby("model")["NDCG@20"]
+        .agg(["mean", "std"])
+    )
     fig, ax = plt.subplots(figsize=(12, 5))
     summary["mean"].plot.bar(yerr=summary["std"].fillna(0), ax=ax)
     ax.set(ylabel="Full-ranking NDCG@20", title="Mean ± sample SD across training seeds")
     fig.tight_layout()
     output.mkdir(parents=True, exist_ok=True)
     fig.savefig(output / "ndcg20.png", dpi=150)
+    plt.close(fig)
+    tradeoff = frame.groupby("model")[["NDCG@20", "head_share"]].mean()
+    fig, ax = plt.subplots(figsize=(8, 5))
+    for model in summary.index:
+        names = [model, *[name for name in tradeoff.index if name.startswith(model + "_rerank_")]]
+        curve = tradeoff.loc[names]
+        ax.plot(curve.head_share, curve["NDCG@20"], marker="o", label=model)
+    ax.set(
+        xlabel="Recommendation share in popular catalog head",
+        ylabel="NDCG@20",
+        title="Fixed reranking penalties: accuracy/popularity tradeoff",
+    )
+    ax.legend(fontsize=8, ncol=2)
+    fig.tight_layout()
+    fig.savefig(output / "popularity_tradeoff.png", dpi=150)
     plt.close(fig)
 
 
