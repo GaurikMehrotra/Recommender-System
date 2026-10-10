@@ -1,0 +1,16 @@
+{
+  "command": [
+    "/workspace/recommender-clean-venv/bin/python",
+    "-m",
+    "src.cold_start",
+    "--config",
+    "configs/full.yaml",
+    "--output",
+    "runs/ml1m_cold"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 104.80223094699977,
+  "max_rss_mib": 708.69921875,
+  "cpu_user_seconds": 310.468515,
+  "cpu_system_seconds": 1.336271
+}

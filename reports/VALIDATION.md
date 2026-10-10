@@ -1,74 +1,53 @@
 # Executed validation and phase status
 
-The cloud instance was validated with Python 3.12.14 and CPU PyTorch 2.14.1+cpu.
-A fresh virtual environment installed the complete `requirements-cpu.lock` with
-`--require-hashes`; editable installation and `pip check` passed. The saved install
-script was executed again successfully, including ruff check/format and **32 pytest
-checks passing**. GitHub Actions is configured but no remote CI outcome is claimed.
+Python 3.12.14, CPU PyTorch 2.14.1+cpu, Linux cloud CPU with four allocated
+threads. A fresh isolated environment installed all dependencies from
+requirements-cpu.lock with --require-hashes. Editable installation, pip check,
+ruff check/format and all **33 pytest checks** passed. Tests include strict
+chronological leakage, hand-computed metrics, sparse matrix handling, negative
+sampling, model shapes, exact NCF scoring, ridge fold-in, checkpoint recovery,
+cache guards, cold-start full-catalog candidates and a tiny end-to-end workflow.
+Remote GitHub Actions is configured; its outcome was not independently observed.
 
-## Functional evidence (fictional data only)
+## Phase evidence
 
-The CLI workflow was exercised on a deterministic synthetic catalog: 12 users,
-40 movies, 120 fictional ratings. All 11 required model variants trained/scored.
-Equal-budget two-trial tuning, validation embedding ablations, cold-user histories
-1-5, held-item diagnostics, three-seed final evaluation (17/42/73), aggregate CSVs,
-paired user bootstrap, fixed reranking curves, plots and resumable final reporting
-completed. Saved data fingerprints/configuration manifests prevent recovery with
-changed data or selections. Interrupted MF recovery matched uninterrupted CPU
-scores exactly in its unit test. No synthetic metric is presented as MovieLens
-accuracy or a scientifically meaningful model comparison.
+| Phases | Delivered and executed |
+|---|---|
+| 1 | CPU hash-locked environment; official verified-HTTPS downloads of MovieLens 100K and 1M; sparse loaders and seed/config utilities |
+| 2 | Real-data EDA figures and notebook execution with calculated takeaways |
+| 3 | Per-user strict chronological train/validation/test protocol; leakage tests; batched full-ranking metrics |
+| 4-9 | All eleven required model variants trained and evaluated on both real datasets; CPU/CUDA selection supported |
+| 10 | Equal-budget tuning, validation embedding ablations, frozen three-seed final metrics and prespecified paired-user bootstrap |
+| 11 | Coverage, novelty, genre/year diversity, popular-head share, fixed reranking tradeoff curves |
+| 12 | Validation-only cold users with 1-5 revealed likes and withheld items; full-catalog ranking; similarity explanations |
+| 13 | Real-data two-tower export; live FastAPI POST and Gradio named API each return ten recommendations excluding selected movies; measured latency/RSS |
+| 14 | 33-test suite, Makefile, CPU GitHub Actions, anchored data/run/artifact ignore rules and MIT code license |
+| 15 | README measured results/figures, model card, dataset citation and checkpoint publishing plan |
+| 16 | Checks rerun and code/aggregate reports pushed to the existing GitHub main branch |
 
-Both live services were started and stopped during validation. FastAPI POST and
-Gradio client `/recommend` each returned 10 recommendations with selected items
-excluded; title/explanation rows were verified. The content two-tower retrieval
-artifact was exported and used for these checks. Demo labels distinguish synthetic
-from MovieLens data.
+The synthetic 12-user/40-item fixture also exercises all model variants and the
+complete tuning, ablation, cold-start, final/resume and serving workflow; it is
+functional evidence only and is not presented as MovieLens effectiveness.
+Interrupted CPU MF recovery matches uninterrupted scores in its unit test.
+All three analysis notebooks executed successfully against real 100K outputs;
+executed notebooks remain ignored to avoid embedding dataset records in Git.
 
-On **40 synthetic movies**, 100 warm retrieval requests measured p50
-0.477 ms, p95 0.529 ms; process RSS
-379.0 MiB and exported in-memory arrays
-0.0171 MiB. These numbers include explanation construction,
-exclude HTTP transport, and do not predict MovieLens/laptop latency or memory.
-The <5 GB target has not been established on MovieLens 100K/1M or the user's laptop.
+## Measured benchmarks and limits
 
-## Experimental phase status
+See [100K debug](ml100k/RESULTS.md) and [1M headline](ml1m/RESULTS.md) for actual
+means, sample standard deviations, saved configurations, resource measurements,
+validation diagnostics and bootstrap intervals. Neural models have a 3-epoch
+100K debug cap or 30-epoch 1M cap; the finite correlated search is limited.
+No data, per-user rows, catalogs, model weights or logs are committed.
 
-| Phases | Implementation/delivery | Real-data execution |
-|---|---|---|
-| 1 | CPU environment, official downloader, sparse loader and configs | Dependencies verified; MovieLens download blocked |
-| 2 | EDA notebook, figures generator and calculated takeaways | Synthetic generator exercised; MovieLens EDA unrun |
-| 3-9 | Chronological protocol, metrics, baselines, classical and all neural models | Synthetic tests/CLI pass; MovieLens effectiveness unrun |
-| 10 | Equal-budget tuning, ablations, >=3 seeds, frozen final stage and bootstrap | Synthetic workflow passes; headline ML-1M/Kaggle unrun |
-| 11-12 | Beyond-accuracy/reranking, cold-start simulation and similarity explanations | Synthetic diagnostics pass; MovieLens analyses unrun |
-| 13 | Retrieval export, FastAPI, Gradio and measured latency/RSS | Live synthetic serving verified; real-data serving unrun |
-| 14-15 | 32-test suite, CPU CI, docs, model card, license and publishing plan | Local checks pass; remote CI not observed |
-| 16 | Final checks and native Git push to existing GitHub origin | Remote push must be verified by delivery process |
+The official GroupLens downloads now succeed. The earlier proxy 403 was resolved;
+archive provenance digests are in DATA_PROVENANCE.json. No mirrors or TLS bypasses
+were used. GPU/Kaggle execution is **unrun** because this instance has no CUDA or
+attached Kaggle runtime. KAGGLE.md supplies exact notebook cells. The measured
+headline experiment was executed on the cloud CPU; it is not mislabeled as GPU.
+Optional 25M and EASE are omitted. Actual Intel i3 laptop timing and memory have
+not been observed; cloud process RSS measurements do not guarantee every setting.
 
-## External blockers and next actions
-
-The official HTTPS MovieLens request returned proxy **403 Forbidden**, including
-through the supported escalation flow. `files.grouplens.org` was added to the
-saved environment draft; saving a draft did not apply the runtime policy. Review
-and save that network change in environment settings, then publish the environment
-when ready. Retry `python -m src.data.download --size 100k` and `--size 1m` once live
-access is available. No mirrors, TLS bypasses or fabricated results were used.
-
-This instance is CPU-only and no Kaggle runtime/tool is attached. Execute the exact
-[Kaggle cells](../KAGGLE.md) in an Internet-enabled GPU notebook on your account for
-ML-1M headline experiments. Publish only measured aggregate tables/figures and
-revise the README after those runs. Optional 25M/EASE are deliberately outside the
-required implementation. No claim of complete experimental execution, published
-cloud snapshot or restoration in a new task is made.
-
-## Continuation: real data access restored
-
-Official downloads of both 100K and 1M subsequently succeeded, preserving TLS.
-The earlier 403 is historical and no longer a current blocker. Archive digests are
-in DATA_PROVENANCE.json. All 32 tests pass with vectorized sparse negative sampling,
-exact weighted-dot GMF scoring and hand-checked ridge user fold-in.
-
-MovieLens 100K tuning/validation ablations/cold-start diagnostics and the one-time
-three-seed final evaluation completed. See ml100k/RESULTS.md for measured aggregates.
-On full 1M with 128-dimensional NeuMF, a one-epoch CPU validation profile took 37.99
-seconds and reached 712.91 MiB child-process peak RSS. This is a cloud Linux memory
-measurement, not a claim of identical laptop performance. Main 1M test is untouched.
+The tested reusable install_script and startup instructions are saved in the
+cloud configuration draft. Saving does not publish the environment or establish
+restoration in a fresh task; review/save and Publish remain environment UI actions.

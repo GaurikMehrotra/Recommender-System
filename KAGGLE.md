@@ -222,8 +222,14 @@ from IPython.display import FileLink, display
 archive = Path("/kaggle/working/recommender_reports.zip")
 with zipfile.ZipFile(archive, "w", compression=zipfile.ZIP_DEFLATED) as z:
     aggregate_names = [
-        "results.csv", "summary.csv", "ablations.csv", "significance.json",
-        "selection.yaml", "trials.json", "FINAL_MANIFEST.json", "TUNING_MANIFEST.json",
+        "results.csv",
+        "summary.csv",
+        "ablations.csv",
+        "significance.json",
+        "selection.yaml",
+        "trials.json",
+        "FINAL_MANIFEST.json",
+        "TUNING_MANIFEST.json",
     ]
     for name in aggregate_names:
         path = Path("runs/ml1m") / name

@@ -1,0 +1,1476 @@
+[
+  {
+    "model": "random",
+    "trial": 0,
+    "config": {
+      "data_path": "data/raw/ml-100k",
+      "positive_threshold": 4.0,
+      "seed": 42,
+      "seeds": [
+        17,
+        42,
+        73
+      ],
+      "threads": 4,
+      "device": "cpu",
+      "epochs": 3,
+      "patience": 2,
+      "batch_size": 1024,
+      "eval_batch_size": 32,
+      "item_batch_size": 128,
+      "learning_rate": 0.003,
+      "weight_decay": 0.0001,
+      "ks": [
+        10,
+        20
+      ],
+      "params": {},
+      "tuning_trials": 2,
+      "rerank_penalties": [
+        0.05,
+        0.2
+      ],
+      "search": {
+        "embedding_dims": [
+          16,
+          32
+        ],
+        "neighbors": [
+          20,
+          50
+        ],
+        "shrinkage": [
+          10.0,
+          30.0
+        ],
+        "learning_rates": [
+          0.003,
+          0.001
+        ],
+        "weight_decays": [
+          0.0001,
+          0.001
+        ]
+      }
+    },
+    "validation": {
+      "Recall@10": 0.00551405193881181,
+      "NDCG@10": 0.002519910867515624,
+      "MAP@10": 0.001294658738628856,
+      "HitRate@10": 0.007470651013874066,
+      "Recall@20": 0.009667378157239417,
+      "NDCG@20": 0.0037063271336066662,
+      "MAP@20": 0.0015379288335566773,
+      "HitRate@20": 0.016008537886873
+    }
+  },
+  {
+    "model": "random",
+    "trial": 1,
+    "config": {
+      "data_path": "data/raw/ml-100k",
+      "positive_threshold": 4.0,
+      "seed": 42,
+      "seeds": [
+        17,
+        42,
+        73
+      ],
+      "threads": 4,
+      "device": "cpu",
+      "epochs": 3,
+      "patience": 2,
+      "batch_size": 1024,
+      "eval_batch_size": 32,
+      "item_batch_size": 128,
+      "learning_rate": 0.001,
+      "weight_decay": 0.001,
+      "ks": [
+        10,
+        20
+      ],
+      "params": {},
+      "tuning_trials": 2,
+      "rerank_penalties": [
+        0.05,
+        0.2
+      ],
+      "search": {
+        "embedding_dims": [
+          16,
+          32
+        ],
+        "neighbors": [
+          20,
+          50
+        ],
+        "shrinkage": [
+          10.0,
+          30.0
+        ],
+        "learning_rates": [
+          0.003,
+          0.001
+        ],
+        "weight_decays": [
+          0.0001,
+          0.001
+        ]
+      }
+    },
+    "validation": {
+      "Recall@10": 0.00551405193881181,
+      "NDCG@10": 0.002519910867515624,
+      "MAP@10": 0.001294658738628856,
+      "HitRate@10": 0.007470651013874066,
+      "Recall@20": 0.009667378157239417,
+      "NDCG@20": 0.0037063271336066662,
+      "MAP@20": 0.0015379288335566773,
+      "HitRate@20": 0.016008537886873
+    }
+  },
+  {
+    "model": "popularity",
+    "trial": 0,
+    "config": {
+      "data_path": "data/raw/ml-100k",
+      "positive_threshold": 4.0,
+      "seed": 42,
+      "seeds": [
+        17,
+        42,
+        73
+      ],
+      "threads": 4,
+      "device": "cpu",
+      "epochs": 3,
+      "patience": 2,
+      "batch_size": 1024,
+      "eval_batch_size": 32,
+      "item_batch_size": 128,
+      "learning_rate": 0.003,
+      "weight_decay": 0.0001,
+      "ks": [
+        10,
+        20
+      ],
+      "params": {
+        "temperature": 1.0
+      },
+      "tuning_trials": 2,
+      "rerank_penalties": [
+        0.05,
+        0.2
+      ],
+      "search": {
+        "embedding_dims": [
+          16,
+          32
+        ],
+        "neighbors": [
+          20,
+          50
+        ],
+        "shrinkage": [
+          10.0,
+          30.0
+        ],
+        "learning_rates": [
+          0.003,
+          0.001
+        ],
+        "weight_decays": [
+          0.0001,
+          0.001
+        ]
+      }
+    },
+    "validation": {
+      "Recall@10": 0.07463027900594602,
+      "NDCG@10": 0.045535631314817276,
+      "MAP@10": 0.028502908278217016,
+      "HitRate@10": 0.128068303094984,
+      "Recall@20": 0.1251444156460165,
+      "NDCG@20": 0.060699995047756854,
+      "MAP@20": 0.032665304831515134,
+      "HitRate@20": 0.19743863393810032
+    }
+  },
+  {
+    "model": "popularity",
+    "trial": 1,
+    "config": {
+      "data_path": "data/raw/ml-100k",
+      "positive_threshold": 4.0,
+      "seed": 42,
+      "seeds": [
+        17,
+        42,
+        73
+      ],
+      "threads": 4,
+      "device": "cpu",
+      "epochs": 3,
+      "patience": 2,
+      "batch_size": 1024,
+      "eval_batch_size": 32,
+      "item_batch_size": 128,
+      "learning_rate": 0.001,
+      "weight_decay": 0.001,
+      "ks": [
+        10,
+        20
+      ],
+      "params": {
+        "temperature": 1.0
+      },
+      "tuning_trials": 2,
+      "rerank_penalties": [
+        0.05,
+        0.2
+      ],
+      "search": {
+        "embedding_dims": [
+          16,
+          32
+        ],
+        "neighbors": [
+          20,
+          50
+        ],
+        "shrinkage": [
+          10.0,
+          30.0
+        ],
+        "learning_rates": [
+          0.003,
+          0.001
+        ],
+        "weight_decays": [
+          0.0001,
+          0.001
+        ]
+      }
+    },
+    "validation": {
+      "Recall@10": 0.07463027900594602,
+      "NDCG@10": 0.045535631314817276,
+      "MAP@10": 0.028502908278217016,
+      "HitRate@10": 0.128068303094984,
+      "Recall@20": 0.1251444156460165,
+      "NDCG@20": 0.060699995047756854,
+      "MAP@20": 0.032665304831515134,
+      "HitRate@20": 0.19743863393810032
+    }
+  },
+  {
+    "model": "user_knn",
+    "trial": 0,
+    "config": {
+      "data_path": "data/raw/ml-100k",
+      "positive_threshold": 4.0,
+      "seed": 42,
+      "seeds": [
+        17,
+        42,
+        73
+      ],
+      "threads": 4,
+      "device": "cpu",
+      "epochs": 3,
+      "patience": 2,
+      "batch_size": 1024,
+      "eval_batch_size": 32,
+      "item_batch_size": 128,
+      "learning_rate": 0.003,
+      "weight_decay": 0.0001,
+      "ks": [
+        10,
+        20
+      ],
+      "params": {
+        "k": 20,
+        "shrinkage": 10.0
+      },
+      "tuning_trials": 2,
+      "rerank_penalties": [
+        0.05,
+        0.2
+      ],
+      "search": {
+        "embedding_dims": [
+          16,
+          32
+        ],
+        "neighbors": [
+          20,
+          50
+        ],
+        "shrinkage": [
+          10.0,
+          30.0
+        ],
+        "learning_rates": [
+          0.003,
+          0.001
+        ],
+        "weight_decays": [
+          0.0001,
+          0.001
+        ]
+      }
+    },
+    "validation": {
+      "Recall@10": 0.14183437515881486,
+      "NDCG@10": 0.08486639710182171,
+      "MAP@10": 0.05391463336589627,
+      "HitRate@10": 0.21664887940234792,
+      "Recall@20": 0.2431980654232522,
+      "NDCG@20": 0.11386527225666748,
+      "MAP@20": 0.06297783459905563,
+      "HitRate@20": 0.3223052294557097
+    }
+  },
+  {
+    "model": "user_knn",
+    "trial": 1,
+    "config": {
+      "data_path": "data/raw/ml-100k",
+      "positive_threshold": 4.0,
+      "seed": 42,
+      "seeds": [
+        17,
+        42,
+        73
+      ],
+      "threads": 4,
+      "device": "cpu",
+      "epochs": 3,
+      "patience": 2,
+      "batch_size": 1024,
+      "eval_batch_size": 32,
+      "item_batch_size": 128,
+      "learning_rate": 0.001,
+      "weight_decay": 0.001,
+      "ks": [
+        10,
+        20
+      ],
+      "params": {
+        "k": 50,
+        "shrinkage": 30.0
+      },
+      "tuning_trials": 2,
+      "rerank_penalties": [
+        0.05,
+        0.2
+      ],
+      "search": {
+        "embedding_dims": [
+          16,
+          32
+        ],
+        "neighbors": [
+          20,
+          50
+        ],
+        "shrinkage": [
+          10.0,
+          30.0
+        ],
+        "learning_rates": [
+          0.003,
+          0.001
+        ],
+        "weight_decays": [
+          0.0001,
+          0.001
+        ]
+      }
+    },
+    "validation": {
+      "Recall@10": 0.150061408412529,
+      "NDCG@10": 0.08772285714167993,
+      "MAP@10": 0.055480277648036966,
+      "HitRate@10": 0.2209178228388474,
+      "Recall@20": 0.2363262523081093,
+      "NDCG@20": 0.11255726862387128,
+      "MAP@20": 0.06275914959068005,
+      "HitRate@20": 0.32123799359658484
+    }
+  },
+  {
+    "model": "item_knn",
+    "trial": 0,
+    "config": {
+      "data_path": "data/raw/ml-100k",
+      "positive_threshold": 4.0,
+      "seed": 42,
+      "seeds": [
+        17,
+        42,
+        73
+      ],
+      "threads": 4,
+      "device": "cpu",
+      "epochs": 3,
+      "patience": 2,
+      "batch_size": 1024,
+      "eval_batch_size": 32,
+      "item_batch_size": 128,
+      "learning_rate": 0.003,
+      "weight_decay": 0.0001,
+      "ks": [
+        10,
+        20
+      ],
+      "params": {
+        "k": 20,
+        "shrinkage": 10.0
+      },
+      "tuning_trials": 2,
+      "rerank_penalties": [
+        0.05,
+        0.2
+      ],
+      "search": {
+        "embedding_dims": [
+          16,
+          32
+        ],
+        "neighbors": [
+          20,
+          50
+        ],
+        "shrinkage": [
+          10.0,
+          30.0
+        ],
+        "learning_rates": [
+          0.003,
+          0.001
+        ],
+        "weight_decays": [
+          0.0001,
+          0.001
+        ]
+      }
+    },
+    "validation": {
+      "Recall@10": 0.123253036540123,
+      "NDCG@10": 0.07360617596256298,
+      "MAP@10": 0.04637497435434113,
+      "HitRate@10": 0.19316969050160085,
+      "Recall@20": 0.19510892581863765,
+      "NDCG@20": 0.09468399900556645,
+      "MAP@20": 0.05233863115881228,
+      "HitRate@20": 0.2838847385272145
+    }
+  },
+  {
+    "model": "item_knn",
+    "trial": 1,
+    "config": {
+      "data_path": "data/raw/ml-100k",
+      "positive_threshold": 4.0,
+      "seed": 42,
+      "seeds": [
+        17,
+        42,
+        73
+      ],
+      "threads": 4,
+      "device": "cpu",
+      "epochs": 3,
+      "patience": 2,
+      "batch_size": 1024,
+      "eval_batch_size": 32,
+      "item_batch_size": 128,
+      "learning_rate": 0.001,
+      "weight_decay": 0.001,
+      "ks": [
+        10,
+        20
+      ],
+      "params": {
+        "k": 50,
+        "shrinkage": 30.0
+      },
+      "tuning_trials": 2,
+      "rerank_penalties": [
+        0.05,
+        0.2
+      ],
+      "search": {
+        "embedding_dims": [
+          16,
+          32
+        ],
+        "neighbors": [
+          20,
+          50
+        ],
+        "shrinkage": [
+          10.0,
+          30.0
+        ],
+        "learning_rates": [
+          0.003,
+          0.001
+        ],
+        "weight_decays": [
+          0.0001,
+          0.001
+        ]
+      }
+    },
+    "validation": {
+      "Recall@10": 0.10492368416594672,
+      "NDCG@10": 0.06638905056982165,
+      "MAP@10": 0.042860354446533744,
+      "HitRate@10": 0.1728922091782284,
+      "Recall@20": 0.16226347173518996,
+      "NDCG@20": 0.08292071747815868,
+      "MAP@20": 0.04752818388697463,
+      "HitRate@20": 0.24332977588046958
+    }
+  },
+  {
+    "model": "svd",
+    "trial": 0,
+    "config": {
+      "data_path": "data/raw/ml-100k",
+      "positive_threshold": 4.0,
+      "seed": 42,
+      "seeds": [
+        17,
+        42,
+        73
+      ],
+      "threads": 4,
+      "device": "cpu",
+      "epochs": 3,
+      "patience": 2,
+      "batch_size": 1024,
+      "eval_batch_size": 32,
+      "item_batch_size": 128,
+      "learning_rate": 0.003,
+      "weight_decay": 0.0001,
+      "ks": [
+        10,
+        20
+      ],
+      "params": {
+        "embedding_dim": 16
+      },
+      "tuning_trials": 2,
+      "rerank_penalties": [
+        0.05,
+        0.2
+      ],
+      "search": {
+        "embedding_dims": [
+          16,
+          32
+        ],
+        "neighbors": [
+          20,
+          50
+        ],
+        "shrinkage": [
+          10.0,
+          30.0
+        ],
+        "learning_rates": [
+          0.003,
+          0.001
+        ],
+        "weight_decays": [
+          0.0001,
+          0.001
+        ]
+      }
+    },
+    "validation": {
+      "Recall@10": 0.16791092815639239,
+      "NDCG@10": 0.09987217970152397,
+      "MAP@10": 0.0642125535735461,
+      "HitRate@10": 0.24439701173959444,
+      "Recall@20": 0.2601209533973675,
+      "NDCG@20": 0.12633506945622172,
+      "MAP@20": 0.07217368886760914,
+      "HitRate@20": 0.3468516542155816
+    }
+  },
+  {
+    "model": "svd",
+    "trial": 1,
+    "config": {
+      "data_path": "data/raw/ml-100k",
+      "positive_threshold": 4.0,
+      "seed": 42,
+      "seeds": [
+        17,
+        42,
+        73
+      ],
+      "threads": 4,
+      "device": "cpu",
+      "epochs": 3,
+      "patience": 2,
+      "batch_size": 1024,
+      "eval_batch_size": 32,
+      "item_batch_size": 128,
+      "learning_rate": 0.001,
+      "weight_decay": 0.001,
+      "ks": [
+        10,
+        20
+      ],
+      "params": {
+        "embedding_dim": 32
+      },
+      "tuning_trials": 2,
+      "rerank_penalties": [
+        0.05,
+        0.2
+      ],
+      "search": {
+        "embedding_dims": [
+          16,
+          32
+        ],
+        "neighbors": [
+          20,
+          50
+        ],
+        "shrinkage": [
+          10.0,
+          30.0
+        ],
+        "learning_rates": [
+          0.003,
+          0.001
+        ],
+        "weight_decays": [
+          0.0001,
+          0.001
+        ]
+      }
+    },
+    "validation": {
+      "Recall@10": 0.1567151157866206,
+      "NDCG@10": 0.09729889793527596,
+      "MAP@10": 0.06473805547555991,
+      "HitRate@10": 0.2305229455709712,
+      "Recall@20": 0.23890837017838087,
+      "NDCG@20": 0.12140343331797135,
+      "MAP@20": 0.071789259852414,
+      "HitRate@20": 0.3287086446104589
+    }
+  },
+  {
+    "model": "mf",
+    "trial": 0,
+    "config": {
+      "data_path": "data/raw/ml-100k",
+      "positive_threshold": 4.0,
+      "seed": 42,
+      "seeds": [
+        17,
+        42,
+        73
+      ],
+      "threads": 4,
+      "device": "cpu",
+      "epochs": 3,
+      "patience": 2,
+      "batch_size": 1024,
+      "eval_batch_size": 32,
+      "item_batch_size": 128,
+      "learning_rate": 0.003,
+      "weight_decay": 0.0001,
+      "ks": [
+        10,
+        20
+      ],
+      "params": {
+        "embedding_dim": 16
+      },
+      "tuning_trials": 2,
+      "rerank_penalties": [
+        0.05,
+        0.2
+      ],
+      "search": {
+        "embedding_dims": [
+          16,
+          32
+        ],
+        "neighbors": [
+          20,
+          50
+        ],
+        "shrinkage": [
+          10.0,
+          30.0
+        ],
+        "learning_rates": [
+          0.003,
+          0.001
+        ],
+        "weight_decays": [
+          0.0001,
+          0.001
+        ]
+      }
+    },
+    "validation": {
+      "Recall@10": 0.06370551066388846,
+      "NDCG@10": 0.037493381803956734,
+      "MAP@10": 0.021720231137634702,
+      "HitRate@10": 0.11419423692636073,
+      "Recall@20": 0.09510723179346445,
+      "NDCG@20": 0.04697860560541751,
+      "MAP@20": 0.024331029284068374,
+      "HitRate@20": 0.16008537886872998
+    }
+  },
+  {
+    "model": "mf",
+    "trial": 1,
+    "config": {
+      "data_path": "data/raw/ml-100k",
+      "positive_threshold": 4.0,
+      "seed": 42,
+      "seeds": [
+        17,
+        42,
+        73
+      ],
+      "threads": 4,
+      "device": "cpu",
+      "epochs": 3,
+      "patience": 2,
+      "batch_size": 1024,
+      "eval_batch_size": 32,
+      "item_batch_size": 128,
+      "learning_rate": 0.001,
+      "weight_decay": 0.001,
+      "ks": [
+        10,
+        20
+      ],
+      "params": {
+        "embedding_dim": 32
+      },
+      "tuning_trials": 2,
+      "rerank_penalties": [
+        0.05,
+        0.2
+      ],
+      "search": {
+        "embedding_dims": [
+          16,
+          32
+        ],
+        "neighbors": [
+          20,
+          50
+        ],
+        "shrinkage": [
+          10.0,
+          30.0
+        ],
+        "learning_rates": [
+          0.003,
+          0.001
+        ],
+        "weight_decays": [
+          0.0001,
+          0.001
+        ]
+      }
+    },
+    "validation": {
+      "Recall@10": 0.06392192237976656,
+      "NDCG@10": 0.038100348923459905,
+      "MAP@10": 0.022139231458423916,
+      "HitRate@10": 0.11419423692636073,
+      "Recall@20": 0.09615329233792415,
+      "NDCG@20": 0.04796301185799972,
+      "MAP@20": 0.02471265420728015,
+      "HitRate@20": 0.16755602988260407
+    }
+  },
+  {
+    "model": "bpr",
+    "trial": 0,
+    "config": {
+      "data_path": "data/raw/ml-100k",
+      "positive_threshold": 4.0,
+      "seed": 42,
+      "seeds": [
+        17,
+        42,
+        73
+      ],
+      "threads": 4,
+      "device": "cpu",
+      "epochs": 3,
+      "patience": 2,
+      "batch_size": 1024,
+      "eval_batch_size": 32,
+      "item_batch_size": 128,
+      "learning_rate": 0.003,
+      "weight_decay": 0.0001,
+      "ks": [
+        10,
+        20
+      ],
+      "params": {
+        "embedding_dim": 16
+      },
+      "tuning_trials": 2,
+      "rerank_penalties": [
+        0.05,
+        0.2
+      ],
+      "search": {
+        "embedding_dims": [
+          16,
+          32
+        ],
+        "neighbors": [
+          20,
+          50
+        ],
+        "shrinkage": [
+          10.0,
+          30.0
+        ],
+        "learning_rates": [
+          0.003,
+          0.001
+        ],
+        "weight_decays": [
+          0.0001,
+          0.001
+        ]
+      }
+    },
+    "validation": {
+      "Recall@10": 0.06828361369449949,
+      "NDCG@10": 0.04219474364042437,
+      "MAP@10": 0.025292798134313607,
+      "HitRate@10": 0.12593383137673425,
+      "Recall@20": 0.12260718944283512,
+      "NDCG@20": 0.05804741795850601,
+      "MAP@20": 0.029891597106563077,
+      "HitRate@20": 0.192102454642476
+    }
+  },
+  {
+    "model": "bpr",
+    "trial": 1,
+    "config": {
+      "data_path": "data/raw/ml-100k",
+      "positive_threshold": 4.0,
+      "seed": 42,
+      "seeds": [
+        17,
+        42,
+        73
+      ],
+      "threads": 4,
+      "device": "cpu",
+      "epochs": 3,
+      "patience": 2,
+      "batch_size": 1024,
+      "eval_batch_size": 32,
+      "item_batch_size": 128,
+      "learning_rate": 0.001,
+      "weight_decay": 0.001,
+      "ks": [
+        10,
+        20
+      ],
+      "params": {
+        "embedding_dim": 32
+      },
+      "tuning_trials": 2,
+      "rerank_penalties": [
+        0.05,
+        0.2
+      ],
+      "search": {
+        "embedding_dims": [
+          16,
+          32
+        ],
+        "neighbors": [
+          20,
+          50
+        ],
+        "shrinkage": [
+          10.0,
+          30.0
+        ],
+        "learning_rates": [
+          0.003,
+          0.001
+        ],
+        "weight_decays": [
+          0.0001,
+          0.001
+        ]
+      }
+    },
+    "validation": {
+      "Recall@10": 0.07354102081956938,
+      "NDCG@10": 0.04315293776447889,
+      "MAP@10": 0.02649149034687989,
+      "HitRate@10": 0.12059765208110992,
+      "Recall@20": 0.1127348342396368,
+      "NDCG@20": 0.05491402084092034,
+      "MAP@20": 0.02947210201802331,
+      "HitRate@20": 0.17822838847385272
+    }
+  },
+  {
+    "model": "gmf",
+    "trial": 0,
+    "config": {
+      "data_path": "data/raw/ml-100k",
+      "positive_threshold": 4.0,
+      "seed": 42,
+      "seeds": [
+        17,
+        42,
+        73
+      ],
+      "threads": 4,
+      "device": "cpu",
+      "epochs": 3,
+      "patience": 2,
+      "batch_size": 1024,
+      "eval_batch_size": 32,
+      "item_batch_size": 128,
+      "learning_rate": 0.003,
+      "weight_decay": 0.0001,
+      "ks": [
+        10,
+        20
+      ],
+      "params": {
+        "embedding_dim": 16
+      },
+      "tuning_trials": 2,
+      "rerank_penalties": [
+        0.05,
+        0.2
+      ],
+      "search": {
+        "embedding_dims": [
+          16,
+          32
+        ],
+        "neighbors": [
+          20,
+          50
+        ],
+        "shrinkage": [
+          10.0,
+          30.0
+        ],
+        "learning_rates": [
+          0.003,
+          0.001
+        ],
+        "weight_decays": [
+          0.0001,
+          0.001
+        ]
+      }
+    },
+    "validation": {
+      "Recall@10": 0.013163846114753264,
+      "NDCG@10": 0.007442600901815145,
+      "MAP@10": 0.0039823708446974195,
+      "HitRate@10": 0.026680896478121666,
+      "Recall@20": 0.03146101201063847,
+      "NDCG@20": 0.012549235380903781,
+      "MAP@20": 0.005225275083659824,
+      "HitRate@20": 0.054429028815368194
+    }
+  },
+  {
+    "model": "gmf",
+    "trial": 1,
+    "config": {
+      "data_path": "data/raw/ml-100k",
+      "positive_threshold": 4.0,
+      "seed": 42,
+      "seeds": [
+        17,
+        42,
+        73
+      ],
+      "threads": 4,
+      "device": "cpu",
+      "epochs": 3,
+      "patience": 2,
+      "batch_size": 1024,
+      "eval_batch_size": 32,
+      "item_batch_size": 128,
+      "learning_rate": 0.001,
+      "weight_decay": 0.001,
+      "ks": [
+        10,
+        20
+      ],
+      "params": {
+        "embedding_dim": 32
+      },
+      "tuning_trials": 2,
+      "rerank_penalties": [
+        0.05,
+        0.2
+      ],
+      "search": {
+        "embedding_dims": [
+          16,
+          32
+        ],
+        "neighbors": [
+          20,
+          50
+        ],
+        "shrinkage": [
+          10.0,
+          30.0
+        ],
+        "learning_rates": [
+          0.003,
+          0.001
+        ],
+        "weight_decays": [
+          0.0001,
+          0.001
+        ]
+      }
+    },
+    "validation": {
+      "Recall@10": 0.009089292066880115,
+      "NDCG@10": 0.004773259148162855,
+      "MAP@10": 0.0026668191289322555,
+      "HitRate@10": 0.017075773745997867,
+      "Recall@20": 0.017218071860547846,
+      "NDCG@20": 0.007070878553651334,
+      "MAP@20": 0.0032316123305827613,
+      "HitRate@20": 0.029882604055496264
+    }
+  },
+  {
+    "model": "mlp",
+    "trial": 0,
+    "config": {
+      "data_path": "data/raw/ml-100k",
+      "positive_threshold": 4.0,
+      "seed": 42,
+      "seeds": [
+        17,
+        42,
+        73
+      ],
+      "threads": 4,
+      "device": "cpu",
+      "epochs": 3,
+      "patience": 2,
+      "batch_size": 1024,
+      "eval_batch_size": 32,
+      "item_batch_size": 128,
+      "learning_rate": 0.003,
+      "weight_decay": 0.0001,
+      "ks": [
+        10,
+        20
+      ],
+      "params": {
+        "embedding_dim": 16
+      },
+      "tuning_trials": 2,
+      "rerank_penalties": [
+        0.05,
+        0.2
+      ],
+      "search": {
+        "embedding_dims": [
+          16,
+          32
+        ],
+        "neighbors": [
+          20,
+          50
+        ],
+        "shrinkage": [
+          10.0,
+          30.0
+        ],
+        "learning_rates": [
+          0.003,
+          0.001
+        ],
+        "weight_decays": [
+          0.0001,
+          0.001
+        ]
+      }
+    },
+    "validation": {
+      "Recall@10": 0.07953532889498738,
+      "NDCG@10": 0.04518826694092356,
+      "MAP@10": 0.026527639634058294,
+      "HitRate@10": 0.13020277481323372,
+      "Recall@20": 0.1256856566888584,
+      "NDCG@20": 0.058529024900444274,
+      "MAP@20": 0.03001534955649006,
+      "HitRate@20": 0.19637139807897544
+    }
+  },
+  {
+    "model": "mlp",
+    "trial": 1,
+    "config": {
+      "data_path": "data/raw/ml-100k",
+      "positive_threshold": 4.0,
+      "seed": 42,
+      "seeds": [
+        17,
+        42,
+        73
+      ],
+      "threads": 4,
+      "device": "cpu",
+      "epochs": 3,
+      "patience": 2,
+      "batch_size": 1024,
+      "eval_batch_size": 32,
+      "item_batch_size": 128,
+      "learning_rate": 0.001,
+      "weight_decay": 0.001,
+      "ks": [
+        10,
+        20
+      ],
+      "params": {
+        "embedding_dim": 32
+      },
+      "tuning_trials": 2,
+      "rerank_penalties": [
+        0.05,
+        0.2
+      ],
+      "search": {
+        "embedding_dims": [
+          16,
+          32
+        ],
+        "neighbors": [
+          20,
+          50
+        ],
+        "shrinkage": [
+          10.0,
+          30.0
+        ],
+        "learning_rates": [
+          0.003,
+          0.001
+        ],
+        "weight_decays": [
+          0.0001,
+          0.001
+        ]
+      }
+    },
+    "validation": {
+      "Recall@10": 0.0732653182226288,
+      "NDCG@10": 0.04397286607157351,
+      "MAP@10": 0.02706478375768664,
+      "HitRate@10": 0.12700106723585913,
+      "Recall@20": 0.1223280987955481,
+      "NDCG@20": 0.05863554848691283,
+      "MAP@20": 0.03105389713969811,
+      "HitRate@20": 0.192102454642476
+    }
+  },
+  {
+    "model": "neumf",
+    "trial": 0,
+    "config": {
+      "data_path": "data/raw/ml-100k",
+      "positive_threshold": 4.0,
+      "seed": 42,
+      "seeds": [
+        17,
+        42,
+        73
+      ],
+      "threads": 4,
+      "device": "cpu",
+      "epochs": 3,
+      "patience": 2,
+      "batch_size": 1024,
+      "eval_batch_size": 32,
+      "item_batch_size": 128,
+      "learning_rate": 0.003,
+      "weight_decay": 0.0001,
+      "ks": [
+        10,
+        20
+      ],
+      "params": {
+        "embedding_dim": 16
+      },
+      "tuning_trials": 2,
+      "rerank_penalties": [
+        0.05,
+        0.2
+      ],
+      "search": {
+        "embedding_dims": [
+          16,
+          32
+        ],
+        "neighbors": [
+          20,
+          50
+        ],
+        "shrinkage": [
+          10.0,
+          30.0
+        ],
+        "learning_rates": [
+          0.003,
+          0.001
+        ],
+        "weight_decays": [
+          0.0001,
+          0.001
+        ]
+      }
+    },
+    "validation": {
+      "Recall@10": 0.06875921126187935,
+      "NDCG@10": 0.04140283706418397,
+      "MAP@10": 0.025404269192162418,
+      "HitRate@10": 0.11632870864461047,
+      "Recall@20": 0.134739374227101,
+      "NDCG@20": 0.06044423343487418,
+      "MAP@20": 0.030436910196470594,
+      "HitRate@20": 0.20277481323372465
+    }
+  },
+  {
+    "model": "neumf",
+    "trial": 1,
+    "config": {
+      "data_path": "data/raw/ml-100k",
+      "positive_threshold": 4.0,
+      "seed": 42,
+      "seeds": [
+        17,
+        42,
+        73
+      ],
+      "threads": 4,
+      "device": "cpu",
+      "epochs": 3,
+      "patience": 2,
+      "batch_size": 1024,
+      "eval_batch_size": 32,
+      "item_batch_size": 128,
+      "learning_rate": 0.001,
+      "weight_decay": 0.001,
+      "ks": [
+        10,
+        20
+      ],
+      "params": {
+        "embedding_dim": 32
+      },
+      "tuning_trials": 2,
+      "rerank_penalties": [
+        0.05,
+        0.2
+      ],
+      "search": {
+        "embedding_dims": [
+          16,
+          32
+        ],
+        "neighbors": [
+          20,
+          50
+        ],
+        "shrinkage": [
+          10.0,
+          30.0
+        ],
+        "learning_rates": [
+          0.003,
+          0.001
+        ],
+        "weight_decays": [
+          0.0001,
+          0.001
+        ]
+      }
+    },
+    "validation": {
+      "Recall@10": 0.05692348088292591,
+      "NDCG@10": 0.032160302337685714,
+      "MAP@10": 0.018764455681478096,
+      "HitRate@10": 0.09818569903948772,
+      "Recall@20": 0.09410733343497484,
+      "NDCG@20": 0.04315643602964554,
+      "MAP@20": 0.021508063916803686,
+      "HitRate@20": 0.15581643543223053
+    }
+  },
+  {
+    "model": "two_tower",
+    "trial": 0,
+    "config": {
+      "data_path": "data/raw/ml-100k",
+      "positive_threshold": 4.0,
+      "seed": 42,
+      "seeds": [
+        17,
+        42,
+        73
+      ],
+      "threads": 4,
+      "device": "cpu",
+      "epochs": 3,
+      "patience": 2,
+      "batch_size": 1024,
+      "eval_batch_size": 32,
+      "item_batch_size": 128,
+      "learning_rate": 0.003,
+      "weight_decay": 0.0001,
+      "ks": [
+        10,
+        20
+      ],
+      "params": {
+        "embedding_dim": 16
+      },
+      "tuning_trials": 2,
+      "rerank_penalties": [
+        0.05,
+        0.2
+      ],
+      "search": {
+        "embedding_dims": [
+          16,
+          32
+        ],
+        "neighbors": [
+          20,
+          50
+        ],
+        "shrinkage": [
+          10.0,
+          30.0
+        ],
+        "learning_rates": [
+          0.003,
+          0.001
+        ],
+        "weight_decays": [
+          0.0001,
+          0.001
+        ]
+      }
+    },
+    "validation": {
+      "Recall@10": 0.0341722993003676,
+      "NDCG@10": 0.02039594430698217,
+      "MAP@10": 0.011991750097406448,
+      "HitRate@10": 0.06296691568836713,
+      "Recall@20": 0.04521183784791041,
+      "NDCG@20": 0.023763468674700486,
+      "MAP@20": 0.012749540127307753,
+      "HitRate@20": 0.08431163287086446
+    }
+  },
+  {
+    "model": "two_tower",
+    "trial": 1,
+    "config": {
+      "data_path": "data/raw/ml-100k",
+      "positive_threshold": 4.0,
+      "seed": 42,
+      "seeds": [
+        17,
+        42,
+        73
+      ],
+      "threads": 4,
+      "device": "cpu",
+      "epochs": 3,
+      "patience": 2,
+      "batch_size": 1024,
+      "eval_batch_size": 32,
+      "item_batch_size": 128,
+      "learning_rate": 0.001,
+      "weight_decay": 0.001,
+      "ks": [
+        10,
+        20
+      ],
+      "params": {
+        "embedding_dim": 32
+      },
+      "tuning_trials": 2,
+      "rerank_penalties": [
+        0.05,
+        0.2
+      ],
+      "search": {
+        "embedding_dims": [
+          16,
+          32
+        ],
+        "neighbors": [
+          20,
+          50
+        ],
+        "shrinkage": [
+          10.0,
+          30.0
+        ],
+        "learning_rates": [
+          0.003,
+          0.001
+        ],
+        "weight_decays": [
+          0.0001,
+          0.001
+        ]
+      }
+    },
+    "validation": {
+      "Recall@10": 0.027571530212938962,
+      "NDCG@10": 0.017743660614057633,
+      "MAP@10": 0.011162143619454185,
+      "HitRate@10": 0.04909284951974386,
+      "Recall@20": 0.0450043197641917,
+      "NDCG@20": 0.02272382884605735,
+      "MAP@20": 0.012342914507040842,
+      "HitRate@20": 0.07897545357524013
+    }
+  }
+]

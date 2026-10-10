@@ -5,12 +5,11 @@ filtering with neural recommendation. The goal is a fair **measured** comparison
 not a presumption that deeper models win. Complete source lives under `src/`;
 notebooks only explore data and analyze saved results.
 
-**Current evidence:** official MovieLens 100K/1M downloads now work. The measured
-[100K debug benchmark](reports/ml100k/RESULTS.md) includes all eleven models,
-three seeds, full-ranking metrics, beyond-accuracy analyses and a paired bootstrap.
-The 1M headline experiment is being prepared after CPU profiling. GPU/Kaggle execution
-has not been observed; its exact cells are supplied. [Validation](reports/VALIDATION.md)
-distinguishes implemented capabilities, actual execution and remaining work.
+**Current evidence:** MovieLens 100K and 1M were evaluated with all eleven model
+variants, three seeds and full-catalog ranking. See the [1M headline report](reports/ml1m/RESULTS.md)
+and [100K debug report](reports/ml100k/RESULTS.md). Tests, live API/demo and notebook
+execution passed. GPU/Kaggle execution remains unrun; exact cells are supplied.
+[Validation](reports/VALIDATION.md) records the executed checks and limits.
 
 ## Quick start (LOCAL, Linux/macOS terminal or VS Code)
 
@@ -118,7 +117,25 @@ establishes optimality. MF can outperform NCF; conclusions must follow actual ru
 |---|---|---|
 | Synthetic fixture | Functional validation only | Not a performance benchmark |
 | MovieLens 100K | Three-seed debug benchmark complete | [Measured aggregates](reports/ml100k/RESULTS.md) |
-| MovieLens 1M (headline, >=3 seeds) | CPU profiling passed; full experiments pending | Not measured yet |
+| MovieLens 1M (headline, 3 seeds) | CPU benchmark complete | [Measured aggregates](reports/ml1m/RESULTS.md) |
+
+| Model | Recall@20 | NDCG@20 |
+|---|---|---|
+| random | 0.0049 ± 0.0007 | 0.0020 ± 0.0004 |
+| popularity | 0.0816 ± 0.0000 | 0.0361 ± 0.0000 |
+| user_knn | 0.1366 ± 0.0000 | 0.0621 ± 0.0000 |
+| item_knn | 0.1096 ± 0.0000 | 0.0505 ± 0.0000 |
+| svd | 0.1442 ± 0.0008 | 0.0657 ± 0.0004 |
+| mf | 0.0623 ± 0.0010 | 0.0272 ± 0.0009 |
+| bpr | 0.0992 ± 0.0017 | 0.0455 ± 0.0005 |
+| gmf | 0.0978 ± 0.0159 | 0.0449 ± 0.0083 |
+| mlp | 0.0898 ± 0.0118 | 0.0399 ± 0.0064 |
+| neumf | 0.0900 ± 0.0121 | 0.0396 ± 0.0059 |
+| two_tower | 0.0690 ± 0.0042 | 0.0315 ± 0.0018 |
+
+![Measured 1M NDCG](reports/figures/ml1m/ndcg20.png)
+
+![Accuracy/popularity tradeoff](reports/figures/ml1m/popularity_tradeoff.png)
 
 Generate aggregate tables with `src.tune` and figures with `src.report`; update this
 table only with measured results and link the run provenance. Final output contains
