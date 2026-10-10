@@ -1,10 +1,14 @@
 """Per-user chronological leave-last-positive-out with explicit tie rules."""
+
 from dataclasses import dataclass
+
 import pandas as pd
+
 
 @dataclass
 class Split:
     """Train contains all earlier ratings; relevance is defined separately."""
+
     train: pd.DataFrame
     validation: pd.DataFrame
     test: pd.DataFrame
@@ -36,7 +40,9 @@ def leave_last_out(events: pd.DataFrame, positive_threshold: float = 4.0) -> Spl
         tests.append(group[(group.timestamp == test_time) & (group.rating >= positive_threshold)])
     if not trains:
         raise ValueError("No users with three positive timestamps")
-    return Split(*(pd.concat(parts, ignore_index=True) for parts in [trains, vals, tests]), excluded)
+    return Split(
+        *(pd.concat(parts, ignore_index=True) for parts in [trains, vals, tests]), excluded
+    )
 
 
 def assert_no_leakage(split: Split) -> None:
