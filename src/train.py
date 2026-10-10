@@ -57,16 +57,32 @@ class TorchScorer:
                 self.model.user_bias(u) + self.model.item_bias.weight.T + self.model.global_mean
             )
             return scores.cpu().numpy()
+        # For MLP/NeuMF, W[u,i]+b = W_u u + W_i i + b. Preproject catalog
+        # embeddings once per user batch; evaluate nonlinear layers in item blocks.
+        # This preserves the architecture and avoids repeating the first pairwise GEMM.
+        dimension = self.model.mlp_item.embedding_dim
+        first = self.model.mlp[0]
+        item_projection = torch.nn.functional.linear(
+            self.model.mlp_item.weight, first.weight[:, dimension:], first.bias
+        )
+        user_projection = torch.nn.functional.linear(
+            self.model.mlp_user(u), first.weight[:, :dimension]
+        )
+        head = self.model.output.weight[:, -dimension:]
+        weighted_gmf = (
+            self.model.user_embedding(u) * self.model.output.weight[0, :dimension]
+            if self.model.variant == "neumf"
+            else None
+        )
         result = np.empty((len(users), self.n_items), dtype=np.float32)
         for start in range(0, self.n_items, self.item_batch_size):
-            ids = torch.arange(
-                start, min(start + self.item_batch_size, self.n_items), device=self.device
-            )
-            uu = u[:, None].expand(-1, len(ids)).reshape(-1)
-            ii = ids[None, :].expand(len(u), -1).reshape(-1)
-            result[:, start : start + len(ids)] = (
-                self.model(uu, ii).reshape(len(u), -1).cpu().numpy()
-            )
+            stop = min(start + self.item_batch_size, self.n_items)
+            hidden = torch.relu(user_projection[:, None, :] + item_projection[None, start:stop, :])
+            hidden = torch.relu(self.model.mlp[3](hidden))
+            score = torch.nn.functional.linear(hidden, head, self.model.output.bias).squeeze(-1)
+            if weighted_gmf is not None:
+                score += weighted_gmf @ self.model.item_embedding.weight[start:stop].T
+            result[:, start:stop] = score.cpu().numpy()
         return result
 
     @torch.no_grad()
@@ -209,7 +225,7 @@ def fit(
         sampler.rng.bit_generator.state = state["sampler_rng"]
         torch.set_rng_state(state["torch_rng"].cpu())
         if device.type == "cuda" and state.get("cuda_rng"):
-            torch.cuda.set_rng_state_all(state["cuda_rng"])
+            torch.cuda.set_rng_state_all([rng_state.cpu() for rng_state in state["cuda_rng"]])
     writer = SummaryWriter(str(output / "tensorboard"))
     try:
         for epoch in range(first, config["epochs"]):
